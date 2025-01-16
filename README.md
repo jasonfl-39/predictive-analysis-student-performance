@@ -44,20 +44,19 @@ Untuk mengetahui bagaimana hubungan antara variabel-variabel dengan variabel tuj
 Pada fitur kategori, dibentuk bar chart untuk melihat bagaimana pengaruh fitur terhadap `Performance Index`.
 Diperoleh hasil:
 
-![categorical_feature](https://github.com/user-attachments/assets/a031332e-9562-4a3d-baeb-c367a42f1905)
+![categorical_feature](https://github.com/user-attachments/assets/ae4499a8-5a7a-4e8b-8887-d8c9e6583504)
 
 Karena tidak ada perbedaan besar antara rata-rata `Performance Index` antara siswa yang mengikuti dan tidak mengikuti kegiatan ekstrakurikuler, maka dapat disimpulkan bahwa pengaruh rendah terhadap `Performance Index`.
 Pada fitur numerik, dibentuk plot untuk menentukan hubungan antar fitur numerik.
 Diperoleh hasil:
 
-![numerical_feature](https://github.com/user-attachments/assets/3ba99bca-44e1-43a4-9fc7-7df9e31b91ec)
-
+![numerical_feature](https://github.com/user-attachments/assets/71048866-2bea-46e3-a4cc-04baeddb5cb2)
 
 Terlihat bahwa fitur `Previous Scores` memiliki korelasi positif dengan `Performance Index`.
 Selanjutnya dibentuk matriks korelasi antar fitur numerik.
 Diperoleh hasil:
 
-![correlation_matrix](https://github.com/user-attachments/assets/10ca5c55-deaf-4b13-ad66-555416aff597)
+![correlation_matrix](https://github.com/user-attachments/assets/60fb26f0-b07d-4663-9f90-0f3128f20fb5)
 
 Karena nilai korelasi antara fitur `Previous Scores` dengan `Performance Index` mencapai >0.92, hal ini menunjukkan adanya korelasi tinggi di antara kedua fitur ini.
 
@@ -73,7 +72,8 @@ dataframe.head()
 ```
 Diperoleh fitur baru `Extracurricular_Activities_No` dan `Extracurricular_Activities_Yes`.
 
-![encoding](https://github.com/user-attachments/assets/786d76d9-b226-40bb-8ee1-4dd10a419d5d)
+![encoding](https://github.com/user-attachments/assets/cb046ba8-47af-44aa-bb72-a3f3af84ec12)
+
 
 ### Train-Test-Split
 Untuk memastikan data yang digunakan untuk training model tidak mengontaminasi data pada saat testing model, maka dilakukan pembagian dataset menjadi train set dan test set dengan ratio 80:20 mengingat terdapat 10000 sampel data.
@@ -87,7 +87,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, rando
 ```
 Diperoleh pembagian data sebagai berikut:
 
-![split](https://github.com/user-attachments/assets/621bf7f0-7d6f-4e2f-a3db-272536026ecb)
+![split](https://github.com/user-attachments/assets/b17538a0-bc44-4e53-a96d-fef7ce5deb50)
 
 ### Standardisasi Fitur Numerik
 Untuk mempermudah pengolahan fitur-fitur numerik oleh model, dilakukan standardisasi fitur.
@@ -101,7 +101,7 @@ X_train[num_features] = scaler.transform(X_train.loc[:, num_features])
 ```
 Diperoleh hasil:
 
-![standardization](https://github.com/user-attachments/assets/6f7bda9e-ff1f-42d9-8045-4dfe3a3049e9)
+![standardization](https://github.com/user-attachments/assets/3c7b8cb3-8532-4aa2-997b-4e334eb72c24)
 
 ## Modeling
 Digunakan tiga jenis algoritma pada model machine learning, yaitu Random Forest, K-Nearest, dan Boosting Algorithm. Ketiga algoritma ini akan dibandingkan performanya sehingga dapat ditentukan model terbaik diantara ketiganya.
@@ -143,12 +143,12 @@ Algoritma ini bekerja dengan cara melakukan training kembali pada model regresi 
 Metrik evaluasi yang digunakan adalah Mean Squared Error (MSE) pada masalah regresi logistik ini untuk membandingkan error di antara hasil prediksi setiap algoritma dengan nilai data validasi. Metrik ini diambil karena model memproses data regresi logistik multivariat sehingga MSE menjadi metrik yang dapat menunjukkan tren dari kesuluruhan data secara intutitif. Saat nilai MSE semakin kecil, hal ini mengindikasikan bahwa akurasi model lebih tinggi sehingga dapat memprediksi nilai performa siswa dengan lebih akurat berdasarkan pada fitur-fitur data seperti dijabarkan pada bagian Data Understanding.
 Dari hasil evaluasi model diperoleh bar chart dari nilai MSE berikut:
 
-![prediction](https://github.com/user-attachments/assets/35f53e3f-2e85-4bf6-acda-a7289c53be80)
+![prediction](https://github.com/user-attachments/assets/d2a18924-46d1-4c86-a623-30a4959904bb)
 
 Terlihat bahwa algoritma RF memberikan error MSE terkecil di antara ketiga algoritma.
 Untuk hasil prediksi dari model, terlihat pula bahwa algoritma RF memberikan hasil prediksi performa siswa terdekat dengan nilai asli pada data validasi:
 
-![evaluation](https://github.com/user-attachments/assets/6108393f-2fea-4249-aa75-b9d9ddd51b9f)
+![evaluation](https://github.com/user-attachments/assets/51acdd60-3a12-40e1-9ac6-4839d9712164)
 
 Maka dapat disimpulkan bahwa algoritma RF merupakan algoritma terbaik untuk memprediksi performa siswa dengan seakurat mungkin pada dataset yang diberikan.
 Selanjutnya, berdasarkan pada penjabaran dari Data Understanding, dapat dijelaskan bahwa faktor yang paling berpengaruh pada performa siswa adalah nilai siswa pada masa ujian sebelumnya. Sementara faktor seperti kegiatan ekstrakurikuler, jam belajar, dan jam tidur tidak memiliki pengaruh signifikan pada performa siswa. Hal ini sebenarnya tidak menutup kemungkinan bahwa terdapat faktor luar yang tidak diliputi dalam dataset sebagai penyebab mengapa terdapat korelasi tinggi antara performa siswa dengan performa sebelumnya. Jadi, faktor-faktor yang menentukan performa siswa belum sepenuhnya dapat dijelaskan dengan dataset yang digunakan, tetapi diperoleh bahwa performa siswa pada umumnya konsisten pada setiap periode pembelajaran dan tidak terpengaruh secara signifikan oleh faktor seperti kegiatan ekstrakurikuler, jam belajar, dan jam tidur.
